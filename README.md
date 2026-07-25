@@ -1,6 +1,6 @@
 <h1>ExpNo 2 : Implement Depth First Search Traversal of a Graph</h1> 
-<h3>Name: </h3>
-<h3>Register Number:     </h3>
+<h3>Name: Sumaiya S</h3>
+<h3>Register Number: 212225040437  </h3>
 <H3>Aim:</H3>
 <p> To Implement Depth First Search Traversal of a Graph using Python 3.</p>
 <h3>Theory:</h3>
@@ -88,8 +88,40 @@ F H <BR>
 <hr>
 ['0', '1', '2', '3', '4']
 
-<hr>
-<h3>Result:</h3>
-<hr>
-<p>Thus,a Graph was constructed and implementation of Depth First Search for the same graph was done successfully.</p>
+## Program 
+```
+from collections import defaultdict
 
+def dfs(graph, start, visited, path):
+   visited[start] = True
+   path.append(start)
+
+   for neighbour in graph[start]:
+       if not visited[neighbour]:
+           dfs(graph, neighbour, visited, path)
+
+   return path
+
+graph = defaultdict(list)
+
+n, e = map(int, input("Enter number of vertices and edges:\n").split())
+
+print("Enter the edges:")
+for _ in range(e):
+   u, v = input().split()
+   graph[u].append(v)
+   graph[v].append(u)
+
+start = input("\nInput:\nStart Node: ")
+
+visited = defaultdict(bool)
+path = []
+
+print("\nOutput:")
+print("DFS Traversal:", dfs(graph, start, visited, path))
+```
+## Output
+<img width="365" height="306" alt="Screenshot 2026-07-25 104415" src="https://github.com/user-attachments/assets/cb807f48-bb96-48ab-bc07-c04edd4715a1" />
+
+## RESULT:
+Thus,a Graph was constructed and implementation of Depth First Search for the same graph was done successfully.
