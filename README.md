@@ -90,38 +90,48 @@ F H <BR>
 
 ## Program 
 ```
-from collections import defaultdict
+def dfs(graph, start):
+    visited = set()
+    stack = [start]
+    traversal = []
 
-def dfs(graph, start, visited, path):
-   visited[start] = True
-   path.append(start)
+    while stack:
+        node = stack.pop()
+        if node not in visited:
+            visited.add(node)
+            traversal.append(node)
+            
+            stack.extend(reversed([nbr for nbr in graph[node] if nbr not in visited]))
 
-   for neighbour in graph[start]:
-       if not visited[neighbour]:
-           dfs(graph, neighbour, visited, path)
+    return traversal
 
-   return path
 
-graph = defaultdict(list)
 
-n, e = map(int, input("Enter number of vertices and edges:\n").split())
+if __name__ == "__main__":
+    n, e = map(int, input().split())
+    graph = {}
 
-print("Enter the edges:")
-for _ in range(e):
-   u, v = input().split()
-   graph[u].append(v)
-   graph[v].append(u)
+    for _ in range(e):
+        u, v = input().split()
+        if u not in graph:
+            graph[u] = []
+        if v not in graph:
+            graph[v] = []
+        graph[u].append(v)
+        graph[v].append(u)
 
-start = input("\nInput:\nStart Node: ")
+    
+    start_node = list(graph.keys())[0]
 
-visited = defaultdict(bool)
-path = []
-
-print("\nOutput:")
-print("DFS Traversal:", dfs(graph, start, visited, path))
+    result = dfs(graph, start_node)
+    print(result)
 ```
-## Output
-<img width="365" height="306" alt="Screenshot 2026-07-25 104415" src="https://github.com/user-attachments/assets/cb807f48-bb96-48ab-bc07-c04edd4715a1" />
+## Output 1
+<img width="397" height="248" alt="Screenshot 2026-07-27 112359" src="https://github.com/user-attachments/assets/835d4467-bb46-4bfe-b284-334a19343533" />
+
+## Output 2
+<img width="283" height="162" alt="Screenshot 2026-07-27 112543" src="https://github.com/user-attachments/assets/7e8601b9-0534-4d4c-a0df-18bdb620d9f8" />
+
 
 ## RESULT:
 Thus,a Graph was constructed and implementation of Depth First Search for the same graph was done successfully.
